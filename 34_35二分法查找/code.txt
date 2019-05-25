@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& A, int target) {
+        int left=findFirst(A,target);
+        if(left==-1)
+            return vector<int> {-1,-1};
+        int right=findLast(A,left,target);
+        return vector<int> {left,right};
+    }
+    int findFirst(vector<int>& A, int target)
+    {
+        int left=0;
+        int right=A.size()-1;
+        int idx=-1;
+        while(left<=right)
+        {
+            int mid=(left+right)>>1;
+            if(target<=A[mid])
+            {
+                right=mid-1;
+            }
+            else
+            {
+                left=mid+1;
+            }
+            if(A[mid]==target)
+                idx=mid;
+        }
+        return idx;
+    }
+    int findLast(vector<int>& A, int begin, int target)
+    {
+        int left=begin;
+        int right=A.size()-1;
+        int idx=-1;
+        while(left<=right)
+        {
+            int mid=(left+right)>>1;
+            if(target>=A[mid])
+            {
+                left=mid+1;
+            }
+            else
+            {
+                right=mid-1;
+            }
+            if(A[mid]==target)
+                idx=mid;
+            
+        }
+        return idx;
+    }
+};
